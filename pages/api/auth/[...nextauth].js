@@ -4,10 +4,13 @@ import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import User from "../../../src/models/User";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import clientPromise from "../../../libs/clientPromise";
+import dbConnect from "../../../libs/dbConnect";
 
 const hundler = NextAuth({
   secret: process.env.NEXT_AUTH_SECRET,
-  database: process.env.MONGODB_URI,
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
@@ -44,7 +47,7 @@ const hundler = NextAuth({
       },
     }),
   ],
-
+  debug: process.env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
   },

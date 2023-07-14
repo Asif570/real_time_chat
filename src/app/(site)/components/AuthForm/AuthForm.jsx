@@ -6,6 +6,7 @@ import AuthSocialButton from "../AuthSocial/AuthSocialButton";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { signIn } from "next-auth/react";
 const AuthForm = () => {
   // varient type = 'LOGIN' | 'REGISTER'
   const [varient, setVarient] = useState("LOGIN");
@@ -46,18 +47,26 @@ const AuthForm = () => {
         .finally(() => setLoading(false));
     }
 
-    // TODO:: LOGIN ACTION
+    //  LOGIN ACTION
+    if (varient === "LOGIN") {
+      signIn("credentials", { ...data, redirect: false }).then((cb) => {
+        if (cb?.error) {
+          toast.error("Invalid Creadintial");
+        }
+        if (cb?.ok && !cb?.error) {
+          toast.success("Logged in!");
+        }
+      });
+    }
   };
 
-  // GitHub login Action
-  const githubAction = () => {
-    // GitHub login Action
+  // Social login Action
+  const socialLoginAction = (action) => {
+    signIn(action, { redirect: false }).then((cb) => {
+      console.log(cb);
+    });
   };
 
-  // Google login Action
-  const googleAction = () => {
-    // Google login Action
-  };
   return (
     <div className=" mt-10 w-full">
       <div className=" w-full bg-white rounded-lg shadow px-4 py-8 sm:px-10">
@@ -112,8 +121,14 @@ const AuthForm = () => {
 
         <div className="mt-6">
           <div className="flex mt-6 gap-2">
-            <AuthSocialButton icon={BsGithub} onClick={githubAction} />
-            <AuthSocialButton icon={BsGoogle} onClick={googleAction} />
+            <AuthSocialButton
+              icon={BsGithub}
+              onClick={() => socialLoginAction("github")}
+            />
+            <AuthSocialButton
+              icon={BsGoogle}
+              onClick={() => socialLoginAction("google")}
+            />
           </div>
         </div>
 

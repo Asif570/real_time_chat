@@ -10,7 +10,7 @@ const accountSchema = new mongoose.Schema({
   expires_at: Number,
   token_type: String,
   scope: String,
-  id_token: String,
+  idtoken: String,
   session_state: String,
 });
 
