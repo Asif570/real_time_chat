@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthSocialButton from "../AuthSocial/AuthSocialButton";
 import { BsGithub, BsGoogle } from "react-icons/bs";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 const AuthForm = () => {
   // varient type = 'LOGIN' | 'REGISTER'
   const [varient, setVarient] = useState("LOGIN");
@@ -33,8 +35,18 @@ const AuthForm = () => {
     },
   });
   const formSubmit = (data) => {
-    console.log(data);
-    // axous register here
+    setLoading(true);
+    // Register Action Here
+    if (varient === "REGISTER") {
+      axios
+        .post("/api/register", { ...data })
+        .catch((err) => {
+          toast.error(err.response.data);
+        })
+        .finally(() => setLoading(false));
+    }
+
+    // TODO:: LOGIN ACTION
   };
 
   // GitHub login Action

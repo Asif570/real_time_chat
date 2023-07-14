@@ -18,7 +18,7 @@ const Input = ({
         {title}
       </label>
       <input
-        {...register(id)}
+        {...register(id, required)}
         type={type}
         placeholder={placeholder}
         className={clsx(
@@ -27,7 +27,6 @@ const Input = ({
           disabled && " opacity-50"
         )}
         disabled={disabled}
-        required={required}
         autoComplete={id}
       />
     </div>
