@@ -4,8 +4,10 @@ import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import User from "../../../src/models/User";
+
 const hundler = NextAuth({
   secret: process.env.NEXT_AUTH_SECRET,
+  database: process.env.MONGODB_URI,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
@@ -25,6 +27,7 @@ const hundler = NextAuth({
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials");
         }
+
         const user = await User.findOne({ email: credentials.email });
 
         if (!user || !user?.hashedPassword) {
@@ -41,7 +44,7 @@ const hundler = NextAuth({
       },
     }),
   ],
-  debug: process.env.NODE_ENV === "development",
+
   session: {
     strategy: "jwt",
   },
