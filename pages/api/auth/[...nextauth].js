@@ -7,8 +7,7 @@ import User from "../../../src/models/User";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "../../../libs/clientPromise";
 import dbConnect from "../../../libs/dbConnect";
-
-const hundler = NextAuth({
+export const authOptions = {
   secret: process.env.NEXT_AUTH_SECRET,
   adapter: MongoDBAdapter(clientPromise),
   providers: [
@@ -51,5 +50,6 @@ const hundler = NextAuth({
   session: {
     strategy: "jwt",
   },
-});
+};
+const hundler = NextAuth(authOptions);
 export default hundler;

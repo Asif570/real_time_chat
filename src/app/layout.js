@@ -1,4 +1,5 @@
-import TosterContext from "./context/tosterContext/TosterContext";
+import AuthContext from "./context/AuthContext";
+import TosterContext from "./context/TosterContext";
 import "./globals.css";
 import { Inter } from "next/font/google";
 
@@ -13,8 +14,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TosterContext />
-        {children}
+        <AuthContext>
+          <TosterContext />
+          {children}
+        </AuthContext>
       </body>
     </html>
   );

@@ -1,15 +1,28 @@
 import Button from "@/app/components/button/Button";
 import Input from "@/app/components/input/Input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthSocialButton from "../AuthSocial/AuthSocialButton";
 import { BsGithub, BsGoogle } from "react-icons/bs";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 const AuthForm = () => {
   // varient type = 'LOGIN' | 'REGISTER'
   const [varient, setVarient] = useState("LOGIN");
+
+  // Router
+  const router = useRouter();
+
+  // sessaion
+  const session = useSession();
+
+  useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.push("/users");
+    }
+  }, [session?.status, router]);
 
   // loading State
   const [loading, setLoading] = useState(false);
@@ -41,6 +54,9 @@ const AuthForm = () => {
     if (varient === "REGISTER") {
       axios
         .post("/api/register", { ...data })
+        .then(() => {
+          signIn("credentials", { ...data });
+        })
         .catch((err) => {
           toast.error(err.response.data);
         })
@@ -49,22 +65,32 @@ const AuthForm = () => {
 
     //  LOGIN ACTION
     if (varient === "LOGIN") {
-      signIn("credentials", { ...data, redirect: false }).then((cb) => {
+      signIn("credentials", { ...data, redirect: false })
+        .then((cb) => {
+          if (cb?.error) {
+            toast.error("Invalid Creadintial");
+          }
+          if (cb?.ok && !cb?.error) {
+            toast.success("Logged in!");
+          }
+        })
+        .finally(() => setLoading(false));
+    }
+  };
+
+  // Social login Action
+  const socialLoginAction = (action) => {
+    setLoading(true);
+    signIn(action, { redirect: false })
+      .then((cb) => {
         if (cb?.error) {
           toast.error("Invalid Creadintial");
         }
         if (cb?.ok && !cb?.error) {
           toast.success("Logged in!");
         }
-      });
-    }
-  };
-
-  // Social login Action
-  const socialLoginAction = (action) => {
-    signIn(action, { redirect: false }).then((cb) => {
-      console.log(cb);
-    });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
