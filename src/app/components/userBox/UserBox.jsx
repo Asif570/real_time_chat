@@ -4,17 +4,29 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import Avatar from "../avatar/Avatar";
 
-const UserBox = ({ data }) => {
+const UserBox = ({ data, currentUser }) => {
   const user = JSON.parse(data);
+
   const router = useRouter();
+
   const [loading, setLoading] = useState(false);
   const hundleClick = useCallback(() => {
     setLoading(true);
     axios
-      .post("/api/conversations", {
-        userId: user._id,
-      })
+      .post(
+        "/api/conversations",
+        {
+          userId: user?._id,
+          currentUser,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((data) => {
+        console.log(data);
         router.push(`/conversations/${data.data._id}`);
       })
       .finally(() => {

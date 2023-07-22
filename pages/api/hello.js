@@ -1,8 +1,7 @@
-import ConnectDb from "../../db/connect";
-import UserModel from "../../src/models/User";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handler(req, res) {
-  await ConnectDb();
-
-  res.status(200).json({ name: "John Doe" });
+  const session = await getServerSession(authOptions);
+  res.status(200).send(JSON.stringify(session));
 }

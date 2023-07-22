@@ -14,6 +14,7 @@ const getCurrentUser = async () => {
       return null;
     }
 
+    // return currentUser;
     return JSON.stringify(currentUser);
   } catch (error) {
     console.log(error);

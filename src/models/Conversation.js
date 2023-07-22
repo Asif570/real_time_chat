@@ -9,6 +9,8 @@ const conversationSchema = new mongoose.Schema({
   userIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
-const Conversation = mongoose.model("Conversation", conversationSchema);
+const Conversation =
+  mongoose.models.Conversation ||
+  mongoose.model("Conversation", conversationSchema);
 
 module.exports = Conversation;

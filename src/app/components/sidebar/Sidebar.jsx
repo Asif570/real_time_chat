@@ -1,10 +1,10 @@
-import getCurrentUser from "@/actions/getCurrentUser";
+import getCurrentUser from "../../../../pages/actions/getCurrentUser";
 import DesktopSidebar from "../desktopSidebar/DesktopSidebar";
 import MobileSidebar from "../mobileSidebar/MobileSidebar";
 
 const Sidebar = async ({ children }) => {
-  const currentUserJson = await getCurrentUser();
-  const currentUser = JSON.parse(currentUserJson);
+  const currentUser = await getCurrentUser();
+  // const currentUser = JSON.parse(currentUserJson);
   return (
     <div className=" h-full">
       <DesktopSidebar currentUser={currentUser} />

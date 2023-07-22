@@ -1,6 +1,11 @@
+import getCurrentUser from "../../../../pages/actions/getCurrentUser";
+import getSession from "../../../../pages/actions/getSession";
 import UserBox from "../userBox/UserBox";
 
-const UserList = ({ items = [] }) => {
+const UserList = async ({ items = [] }) => {
+  const currentUserStr = await getCurrentUser();
+  const currentUser = JSON.parse(currentUserStr);
+
   return (
     <aside className=" fixed inset-y-0 pb-20 lg:pb-0 lg:pl-20 lg:w-80 lg:block overflow-y-auto border-r border-gray-200 block w-full left-0">
       <div className="px-5">
@@ -9,7 +14,7 @@ const UserList = ({ items = [] }) => {
         </div>
         {items?.map((item, i) => {
           const data = JSON.stringify(item);
-          return <UserBox key={i} data={data} />;
+          return <UserBox key={i} data={data} currentUser={currentUser} />;
         })}
       </div>
     </aside>
