@@ -4,7 +4,7 @@ import MobileSidebar from "../mobileSidebar/MobileSidebar";
 
 const Sidebar = async ({ children }) => {
   const currentUser = await getCurrentUser();
-  // const currentUser = JSON.parse(currentUserJson);
+
   return (
     <div className=" h-full">
       <DesktopSidebar currentUser={currentUser} />

@@ -6,8 +6,8 @@ import { MdOutlineGroupAdd } from "react-icons/md";
 import clsx from "clsx";
 import ConversationBox from "../conversationBox/ConversationBox";
 
-const ConversationList = ({ initialItems, Alluser }) => {
-  const [items, setItems] = useState(JSON.parse(initialItems));
+const ConversationList = ({ initialItems, Alluser, AllMessage }) => {
+  const [items, setItems] = useState(initialItems);
   const router = useRouter();
   const { isOpen, conversationId } = useConversation();
   return (
@@ -32,6 +32,7 @@ const ConversationList = ({ initialItems, Alluser }) => {
                 data={item}
                 Alluser={Alluser}
                 selected={conversationId === item._id}
+                AllMessage={AllMessage}
               />
             );
           })}

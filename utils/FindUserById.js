@@ -13,6 +13,5 @@ const FindUserById = (ids) => {
       console.error("Error fetching users:", error);
       // Handle any errors that occurred during the process
     });
-  console.log(Alluser);
 };
 export default FindUserById;

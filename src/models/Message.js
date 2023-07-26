@@ -9,6 +9,6 @@ const messageSchema = new mongoose.Schema({
   senderId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
-const Message = mongoose.model("Message", messageSchema);
-
+const Message =
+  mongoose.models.Message || mongoose.model("Message", messageSchema);
 module.exports = Message;

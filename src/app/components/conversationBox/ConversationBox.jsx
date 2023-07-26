@@ -8,18 +8,21 @@ import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import Avatar from "../avatar/Avatar";
 
-const ConversationBox = ({ data, selected, Alluser }) => {
+const ConversationBox = ({ data, selected, Alluser, AllMessage }) => {
   const otherUser = useOtherUser(data, Alluser);
+
   const session = useSession();
   const router = useRouter();
   const hundleClick = useCallback(() => {
     router.push(`/conversations/${data._id}`);
   }, [router, data._id]);
   const lastMessage = useMemo(() => {
-    const messages = data.messages || [];
+    const messagesIds = data?.messegesIds;
 
-    return messages[messages.length - 1];
-  }, [data.messages]);
+    const lastMessageId = messagesIds[messagesIds.length - 1];
+
+    return AllMessage.filter((item) => item._id === lastMessageId)[0];
+  }, [data?.messegesIds]);
   const userEmail = useMemo(() => {
     return session?.data?.user?.email;
   }, [session?.data?.user?.email]);
