@@ -11,6 +11,7 @@ const page = async ({ params }) => {
   const Alluser = await getUser();
   const conversation = await getConversationById(params.conversationId);
   const messages = await getMessage(params.conversationId);
+
   const currentUser = await getCurrentUser();
   if (!conversation) {
     return (
@@ -25,7 +26,7 @@ const page = async ({ params }) => {
     <div className=" lg:pl-80 h-full ">
       <div className="h-full flex flex-col">
         <Header conversation={conversation[0]} Alluser={Alluser} />
-        <Body />
+        <Body initialMessages={messages} currentUser={currentUser} />
         <Form currentUser={currentUser} />
       </div>
     </div>

@@ -55,7 +55,7 @@ const POST = async (req, res) => {
     const newConversation = await Conversation.create({
       userIds: [currentUser._id, userId],
     });
-    res.send(newConversation);
+    res.json(newConversation);
     return;
   } catch (error) {
     res.status(500).send(error);

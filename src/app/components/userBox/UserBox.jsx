@@ -25,9 +25,8 @@ const UserBox = ({ data, currentUser }) => {
           },
         }
       )
-      .then((data) => {
-        console.log(data);
-        router.push(`/conversations/${data.data._id}`);
+      .then((res) => {
+        router.push(`/conversations/${res.data._id}`);
       })
       .finally(() => {
         setLoading(false);

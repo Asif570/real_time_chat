@@ -27,8 +27,9 @@ const messages = async (req, res) => {
       { _id: conversationId },
       {
         lastMessegeAt: new Date(),
-        messegesIds: newMessage._id,
-      }
+        $push: { messegesIds: newMessage._id },
+      },
+      { new: true }
     );
 
     res.status(201).send(newMessage);

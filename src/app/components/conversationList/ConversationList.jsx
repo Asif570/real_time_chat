@@ -6,10 +6,11 @@ import { MdOutlineGroupAdd } from "react-icons/md";
 import clsx from "clsx";
 import ConversationBox from "../conversationBox/ConversationBox";
 
-const ConversationList = ({ initialItems, Alluser, AllMessage }) => {
+const ConversationList = ({ initialItems, AllMessage }) => {
   const [items, setItems] = useState(initialItems);
   const router = useRouter();
   const { isOpen, conversationId } = useConversation();
+
   return (
     <aside
       className={clsx(
@@ -30,7 +31,6 @@ const ConversationList = ({ initialItems, Alluser, AllMessage }) => {
               <ConversationBox
                 key={i}
                 data={item}
-                Alluser={Alluser}
                 selected={conversationId === item._id}
                 AllMessage={AllMessage}
               />

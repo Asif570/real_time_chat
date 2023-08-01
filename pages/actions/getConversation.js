@@ -14,7 +14,12 @@ const getConversation = async () => {
   try {
     const conversations = await Conversation.find({
       userIds: currentUser._id,
-    }).sort({ lastMessageAt: "desc" });
+    })
+      .populate([
+        { path: "messegesIds", options: { lean: true } },
+        { path: "userIds", options: { lean: true } },
+      ])
+      .sort({ lastMessageAt: "desc" });
     const conversationsStr = JSON.stringify(conversations);
     return conversationsStr;
   } catch (error) {

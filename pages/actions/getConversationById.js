@@ -10,7 +10,12 @@ const getConversationById = async (conversationId = "") => {
       return null;
     }
 
-    const conversation = await Conversation.find({ _id: conversationId });
+    const conversation = await Conversation.find({
+      _id: conversationId,
+    }).populate([
+      { path: "messegesIds", options: { lean: true } },
+      { path: "userIds", options: { lean: true } },
+    ]);
 
     return conversation;
   } catch (error) {

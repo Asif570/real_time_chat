@@ -1,22 +1,15 @@
 import { useSession } from "next-auth/react";
 import { useMemo } from "react";
 
-const useOtherUser = (conversation, Alluser) => {
+const useOtherUser = (conversation) => {
   const session = useSession();
   const currentUserEmail = session?.data?.user.email;
   const otherUser = useMemo(() => {
     const otherUserId = conversation?.userIds.filter(
       (user) => user.email !== currentUserEmail
     );
-    const filteredUsers = [];
-    for (const id of otherUserId) {
-      for (const user of Alluser) {
-        if (user._id === id) {
-          filteredUsers.push(user);
-        }
-      }
-    }
-    return filteredUsers;
+
+    return otherUserId;
   }, [currentUserEmail, conversation.users]);
 
   return otherUser[0];
