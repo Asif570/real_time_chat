@@ -21,7 +21,7 @@ const ConversationList = ({ initialItems, AllMessage }) => {
       <div className="px-5">
         <div className="flex justify-between mt-4 pt-4">
           <div className="text-2xl font-bold text-neutral-800">Message</div>
-          <div className="rounded-full bg-gray-100 cursor-pointer hover:opacity-75 transition">
+          <div className="rounded-full bg-gray-100 cursor-pointer hover:opacity-75 transition w-[32px] flex items-center justify-center">
             <MdOutlineGroupAdd size={20} />
           </div>
         </div>

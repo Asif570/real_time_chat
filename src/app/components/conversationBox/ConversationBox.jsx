@@ -53,7 +53,7 @@ const ConversationBox = ({ data, selected, AllMessage }) => {
     <div
       onClick={hundleClick}
       className={clsx(
-        `w-full relative flex items-center space-x-3 hover:bg-neutral-100 rounded-lg transition cursor-pointer`,
+        `p-1 w-full relative flex items-center  space-x-3 hover:bg-neutral-100 rounded-lg transition cursor-pointer`,
         selected ? "bg-neutral-100" : "bg-white"
       )}
     >
