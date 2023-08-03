@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { FiAlertTriangle } from "react-icons/fi";
 import { Dialog } from "@headlessui/react";
 import Button from "../button/Button";
-const ConfrimModal = ({ isOpen, onClose }) => {
+const ConfrimModal = ({ isOpen = false, onClose }) => {
   const router = useRouter();
   const { conversationId } = useConversation();
   const [isLoading, setIsloading] = useState(false);
